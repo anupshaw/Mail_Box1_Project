@@ -1,11 +1,13 @@
 import { useRef, useState } from "react";
 import { Card, Button, Container, Form, Row, Col } from "react-bootstrap";
+import { useHistory } from "react-router-dom";
 import classes from "./Auth.module.css";
 import AuthForm from "./AuthForm";
 
 const Auth = () => {
   const [isLogIn, setIsLogIn] = useState(true);
   const ref = useRef();
+  const history=useHistory();
 
   const toggleHandler = () => {
     setIsLogIn((prevState) => {
@@ -42,6 +44,12 @@ const Auth = () => {
         throw new Error(data.error.message);
       } else {
         alert("login successfully");
+        if(isLogIn){
+          history.replace('/welcome')
+        }
+      else{
+        history.replace('/')
+      }
       }
     } catch (error) {
       alert(error.message);
